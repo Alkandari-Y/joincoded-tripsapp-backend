@@ -1,0 +1,10 @@
+{
+  "name": "joincoded-tripsapp-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Alkandari-Y <yayalkandari@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
