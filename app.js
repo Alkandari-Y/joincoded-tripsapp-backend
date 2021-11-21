@@ -27,13 +27,11 @@ app.use("/media", express.static(path.join(__dirname, "media")));
 
 //Route Import
 const userRoutes = require("./apis/users/routes");
-// const tripRoutes = require("./apis/trips/routes");
+const tripRoutes = require("./apis/trips/routes");
 
 //Routes
 app.use("/api/", userRoutes);
-// app.use("/api/trips", tripRoutes);
-
-
+app.use("/api/trips", tripRoutes);
 
 app.use(errorHandler);
 
