@@ -1,9 +1,13 @@
 require("dotenv").config();
 const path = require("path");
 const express = require("express");
+
+
 //DEPENDECY PACKAGES AND MODULES
 const morgan = require("morgan");
 const cors = require("cors");
+
+//Passport Import
 const passport = require("passport");
 const { localStrategy, JWTStrategy } = require("./middleware/passport");
 

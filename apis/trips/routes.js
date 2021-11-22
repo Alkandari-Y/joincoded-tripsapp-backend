@@ -1,8 +1,6 @@
 const express = require("express");
-const Trip = require("../../db/models/Trip");
-const upload = require("../../middleware/multer"); // i need to finish the path and we need to add multer,
-// so we can add images
-const passport = require("passport"); // we will need this for the authentication/params
+const upload = require("../../middleware/multer");
+const passport = require("passport");
 
 const {
   tripListRetrieve,
@@ -25,16 +23,7 @@ router.param("tripId", async (req, res, next, tripId) => {
   }
 });
 
-router.get("/", tripListRetrieve); // retrieve
-
-router.get("/:tripId", tripDetail); // might not need, done just incase
-
-router.post(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
-  tripCreate
-);
+router.get("/:tripId", tripDetail);
 
 router.put(
   "/:tripId",
@@ -48,5 +37,14 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   tripDelete
 );
+
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  tripCreate
+);
+
+router.get("/", tripListRetrieve);
 
 module.exports = router;
