@@ -8,6 +8,9 @@ const {
 const router = express.Router();
 const passport = require("passport");
 
+// param middleware
+// router.param("", async (req,res,next,)
+
 //Register
 router.post("/signup", signUp);
 
