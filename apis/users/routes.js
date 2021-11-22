@@ -1,13 +1,29 @@
 const express = require("express");
-const { signUp, signIn } = require("./controllers");
+const {
+  signUp,
+  signIn,
+  editProfile,
+  getUserProfile,
+} = require("./controllers");
 const router = express.Router();
-const passport = require("passport")
-
+const passport = require("passport");
 
 //Register
-router.post("/signup", signUp)
+router.post("/signup", signUp);
 
 //Login
-router.post("/signin", passport.authenticate("local", {session: false}),signIn)
+router.post(
+  "/signin",
+  passport.authenticate("local", { session: false }),
+  signIn
+);
+router.get(
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
+  getUserProfile
+);
 
-module.exports = router
+//Updating Page
+// router.put("/:slug", editProfile);
+
+module.exports = router;
