@@ -23,6 +23,7 @@ const UserSchema = Schema(
     profile: {
       image: {
         type: String,
+        default: "/media/defaultUserImage.jpg"
       },
       bio: {
         type: String,

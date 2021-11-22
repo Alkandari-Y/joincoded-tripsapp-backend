@@ -6,6 +6,7 @@ const { generateToken } = require("../../utils/createToken");
 //Get user Profile
 exports.getUserProfile = async (req, res, next) => {
   try {
+    console.log('requested profile')
     const foundUser = await User.findById(req.user._id);
     req.body.profile = {
       image: foundUser.profile.image,
