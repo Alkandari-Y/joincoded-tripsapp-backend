@@ -2,7 +2,6 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 
-
 //DEPENDECY PACKAGES AND MODULES
 const morgan = require("morgan");
 const cors = require("cors");
@@ -27,7 +26,7 @@ passport.use(JWTStrategy);
 
 //CORS && Media Route
 app.use(cors());
-app.use("/media", express.static(path.join(__dirname, "media")));
+app.use("/media/", express.static(path.join(__dirname, "media")));
 
 //Route Import
 const userRoutes = require("./apis/users/routes");
