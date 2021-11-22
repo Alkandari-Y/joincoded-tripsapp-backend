@@ -3,22 +3,25 @@ const User = require("../../db/models/User");
 const { createHash } = require("../../utils/createHash");
 const { generateToken } = require("../../utils/createToken");
 
-//Get user Profile
-exports.getUserProfile = async (req, res, next) => {
+//Find User
+exports.findUserByUserName = async (userName, next) => {
   try {
-    console.log('requested profile')
-    const foundUser = await User.findById(req.user._id);
-    req.body.profile = {
-      image: foundUser.profile.image,
-      bio: foundUser.profile.bio,
-      favoriteTrips: foundUser.profile.favoriteTrips,
-      tripsToGoOn: foundUser.profile.tripsToGoOn,
-    };
-    res.status(200).json(req.body.profile);
+    const foundUser = await User.findOne({ username: userName });
+    return foundUser;
   } catch (error) {
     next(error);
   }
 };
+
+//
+exports.getRequestedProfile = async (req, res, next) => {
+  try {
+    console.log(req.profile)
+    res.status(200).json(req.profile)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // Sign Up
 exports.signUp = async (req, res, next) => {

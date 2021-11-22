@@ -2,14 +2,27 @@ const express = require("express");
 const {
   signUp,
   signIn,
-  editProfile,
-  getUserProfile,
+  getRequestedProfile,
+  findUserByUserName,
 } = require("./controllers");
 const router = express.Router();
 const passport = require("passport");
 
-// param middleware
-// router.param("", async (req,res,next,)
+router.param("userName", async (req, res, next, userName) => {
+  const requestedProfile = await findUserByUserName(userName, next);
+  if (requestedProfile) {
+    req.profile = {
+      username: requestedProfile.username, 
+      image: requestedProfile.profile.image,
+      bio: requestedProfile.profile.bio,
+      favoriteTrips: requestedProfile.profile.favoriteTrips,
+      tripsToGoOn: requestedProfile.profile.tripsToGoOn,
+    };
+    next();
+  } else {
+    next({ status: 404, message: "trip not found! " });
+  }
+});
 
 //Register
 router.post("/signup", signUp);
@@ -21,9 +34,9 @@ router.post(
   signIn
 );
 router.get(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
-  getUserProfile
+  "/userProfile/:userName",
+
+  getRequestedProfile
 );
 
 //Updating Page
