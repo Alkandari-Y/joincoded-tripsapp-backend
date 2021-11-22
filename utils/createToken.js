@@ -7,7 +7,7 @@ exports.generateToken = (userObj) => {
         username: userObj.username,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '4h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5d' });
     
     return token;
 }

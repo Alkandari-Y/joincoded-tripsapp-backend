@@ -33,8 +33,9 @@ const userRoutes = require("./apis/users/routes");
 const tripRoutes = require("./apis/trips/routes");
 
 //Routes
-app.use("/api/", userRoutes);
 app.use("/api/trips", tripRoutes);
+app.use("/api/", userRoutes);
+
 
 app.use(errorHandler);
 
