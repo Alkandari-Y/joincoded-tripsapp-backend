@@ -39,12 +39,12 @@ exports.tripCreate = async (req, res, next) => {
   }
 };
 
-
 //Update Trip
 exports.tripUpdate = async (req, res, next) => {
   try {
     if (req.file) {
       req.body.image = `/${req.file.path}`;
+      req.body.image = req.body.image.replace("\\", "/");
     }
     console.log(req.trip);
     console.log(req.body);
@@ -67,7 +67,6 @@ exports.tripDelete = async (req, res, next) => {
     next(error);
   }
 };
-
 
 // this is to fetch a trip detail
 exports.tripDetail = async (req, res, next) => {
