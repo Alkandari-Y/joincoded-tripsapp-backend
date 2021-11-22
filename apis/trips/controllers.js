@@ -1,8 +1,8 @@
 const Trip = require("../../db/models/Trip");
 
 // CRUD for trips
-//----------------------------------------------------------------------
-// this will find a specific tripId.
+
+//Get Trip By Id
 exports.fetchTrip = async (TripId, next) => {
   try {
     const trip = await Trip.findById(TripId);
@@ -11,8 +11,8 @@ exports.fetchTrip = async (TripId, next) => {
     next(error);
   }
 };
-//------------------------------------------------------------------------
-// this is to retrieve tripList
+
+//Fetch Trip List
 exports.tripListRetrieve = async (req, res, next) => {
   try {
     const trips = await Trip.find();
@@ -21,8 +21,8 @@ exports.tripListRetrieve = async (req, res, next) => {
     next(error);
   }
 };
-//-------------------------------------------------------------------------
-// this is to create a trip
+
+//Create Trip
 exports.tripCreate = async (req, res, next) => {
   try {
     if (req.file) {
@@ -38,8 +38,9 @@ exports.tripCreate = async (req, res, next) => {
     next(error);
   }
 };
-//---------------------------------------------------------------------------------
-// this is to update a trip
+
+
+//Update Trip
 exports.tripUpdate = async (req, res, next) => {
   try {
     if (req.file) {
@@ -56,8 +57,8 @@ exports.tripUpdate = async (req, res, next) => {
     next(error);
   }
 };
-//-------------------------------------------------------------------------------
-// this is to delete a trip
+
+//Delete Trip
 exports.tripDelete = async (req, res, next) => {
   try {
     await req.trip.remove();
@@ -66,11 +67,12 @@ exports.tripDelete = async (req, res, next) => {
     next(error);
   }
 };
-//--------------------------------------------------------------------------------------
+
+
 // this is to fetch a trip detail
 exports.tripDetail = async (req, res, next) => {
   try {
-    res.status(200).json(req.product);
+    res.status(200).json(req.trip);
   } catch (error) {
     next(error);
   }
