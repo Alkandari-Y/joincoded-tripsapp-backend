@@ -1,28 +1,8 @@
-const { findOneAndUpdate } = require("../../db/models/User");
+const Profile = require("../../db/models/Profile")
 const User = require("../../db/models/User");
 //Import Utils
 const { createHash } = require("../../utils/createHash");
 const { generateToken } = require("../../utils/createToken");
-
-//Find User
-exports.findUserByUserName = async (userName, next) => {
-  try {
-    const foundUser = await User.findOne({ username: userName });
-    return foundUser;
-  } catch (error) {
-    next(error);
-  }
-};
-
-//
-exports.getRequestedProfile = async (req, res, next) => {
-  try {
-    console.log(req.profile);
-    res.status(200).json(req.profile);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 // Sign Up
 exports.signUp = async (req, res, next) => {
@@ -31,6 +11,8 @@ exports.signUp = async (req, res, next) => {
 
     const newUser = await User.create(req.body);
     const token = generateToken(newUser);
+    const userProfile = await Profile.create({ user: newUser._id, });
+    await newUser.updateOne({ profile: userProfile._id });
     res.status(201).json({ token });
   } catch (error) {
     next(error);
@@ -41,35 +23,3 @@ exports.signIn = async (req, res, next) => {
   const token = generateToken(req.user);
   res.status(200).json({ token });
 };
-
-// Editing Profile
-
-exports.editProfile = async (req, res, next) => {
-  console.log(req.user);
-  try {
-    if (req.file) {
-      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
-    }
-    // const { userName } = req.params;
-    // await User.findOne({ username: userName });
-    await req.user.updateOne({ profile: req.body }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
-
-    return res.status(201).json(req.user.profile);
-  } catch (error) {
-    return next(error);
-  }
-};
-
-// exports.editProfile = async (req, res, next) => {
-//   req.profile = req.body
-//   try {
-//     if (req.file) {
-//       req.body.profile.image = `http://${req.get("host")}/media/${req.file.filename}`;
-//     }
-//     // const { userName } = req.params;
-//     const updatedUser = await User.findOneAndUpdate(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
-//     return res.status(201).json(updatedUser);
-//   } catch (error) {
-//     return next(error);
-//   }
-// };

@@ -9,21 +9,21 @@ const {
 const router = express.Router();
 const passport = require("passport");
 
-router.param("userName", async (req, res, next, userName) => {
-  const requestedProfile = await findUserByUserName(userName, next);
-  if (requestedProfile) {
-    req.profile = {
-      username: requestedProfile.username,
-      image: requestedProfile.profile.image,
-      bio: requestedProfile.profile.bio,
-      favoriteTrips: requestedProfile.profile.favoriteTrips,
-      tripsToGoOn: requestedProfile.profile.tripsToGoOn,
-    };
-    next();
-  } else {
-    next({ status: 404, message: "trip not found! " });
-  }
-});
+// router.param("userName", async (req, res, next, userName) => {
+//   const requestedProfile = await findUserByUserName(userName, next);
+//   if (requestedProfile) {
+//     req.profile = {
+//       username: requestedProfile.username,
+//       image: requestedProfile.profile.image,
+//       bio: requestedProfile.profile.bio,
+//       favoriteTrips: requestedProfile.profile.favoriteTrips,
+//       tripsToGoOn: requestedProfile.profile.tripsToGoOn,
+//     };
+//     next();
+//   } else {
+//     next({ status: 404, message: "trip not found! " });
+//   }
+// });
 
 //Register
 router.post("/signup", signUp);
@@ -34,18 +34,18 @@ router.post(
   passport.authenticate("local", { session: false }),
   signIn
 );
-router.get(
-  "/userProfile/:userName",
+// router.get(
+//   "/userProfile/:userName",
 
-  getRequestedProfile
-);
+//   getRequestedProfile
+// );
 
 //Updating Page
-router.put(
-  "/:userName",
-  passport.authenticate("jwt", { session: false }),
-  // upload.single("image"),
-  editProfile
-);
+// router.put(
+//   "/:userName",
+//   passport.authenticate("jwt", { session: false }),
+//   // upload.single("image"),
+//   editProfile
+// );
 
 module.exports = router;

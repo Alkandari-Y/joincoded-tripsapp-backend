@@ -31,8 +31,9 @@ app.use("/media/", express.static(path.join(__dirname, "media")));
 //Route Import
 const userRoutes = require("./apis/users/routes");
 const tripRoutes = require("./apis/trips/routes");
-
+const profileRoutes = require("./apis/profiles/routes");
 //Routes
+app.use("/api/profiles", profileRoutes)
 app.use("/api/trips", tripRoutes);
 app.use("/api/", userRoutes);
 
