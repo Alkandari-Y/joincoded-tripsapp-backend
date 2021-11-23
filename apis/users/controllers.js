@@ -1,3 +1,4 @@
+const { findOneAndUpdate } = require("../../db/models/User");
 const User = require("../../db/models/User");
 //Import Utils
 const { createHash } = require("../../utils/createHash");
@@ -16,12 +17,12 @@ exports.findUserByUserName = async (userName, next) => {
 //
 exports.getRequestedProfile = async (req, res, next) => {
   try {
-    console.log(req.profile)
-    res.status(200).json(req.profile)
+    console.log(req.profile);
+    res.status(200).json(req.profile);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 // Sign Up
 exports.signUp = async (req, res, next) => {
@@ -43,10 +44,15 @@ exports.signIn = async (req, res, next) => {
 
 // Editing Profile
 
-// exports.editProfile = async (req, res, next) => {
-//   try {
-//     if (req.file) {
-//       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
-//     }
-//   } catch (error) {}
-// };
+exports.editProfile = async (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
+    // const { userName } = req.params;
+    await req.user.updateOne(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+    return res.status(201).json(req.user.profile);
+  } catch (error) {
+    return next(error);
+  }
+};
