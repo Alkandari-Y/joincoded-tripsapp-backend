@@ -15,7 +15,7 @@ exports.findUserProfileById = async (profileId, next) => {
 exports.getProfileList = async (req, res, next) => {
     try {
         const profiles = await Profile.find()
-        .populate("tripsCreated").populate("user", { path: 'user', select: 'username' })
+        .populate( {path: "user", select: "username"})
       return res.status(200).json(profiles);
     } catch (error) {
       console.log(error);
