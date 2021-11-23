@@ -4,9 +4,9 @@ const upload = require("../../middleware/multer");
 const passport = require("passport");
 
 const {
-    getProfileList,
-    findUserProfileById,
-    updateProfile,
+  getProfileList,
+  findUserProfileById,
+  updateProfile,
 } = require("./controllers");
 
 router.param("profileId", async (req, res, next, profileId) => {
@@ -20,14 +20,14 @@ router.param("profileId", async (req, res, next, profileId) => {
 });
 
 //Updating Page
+// REVIEW: you don't need the ID, you have the user ID from the tokennnnn
 router.put(
-    "/:profileId",
-    passport.authenticate("jwt", { session: false }),
-    upload.single("image"),
-    updateProfile
+  "/:profileId",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  updateProfile
 );
 
-router.get(
-    "/", getProfileList );
-  
+router.get("/", getProfileList);
+
 module.exports = router;

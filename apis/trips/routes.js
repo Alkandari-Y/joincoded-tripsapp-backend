@@ -23,6 +23,7 @@ router.param("tripId", async (req, res, next, tripId) => {
   }
 });
 
+// REVIEW: What do you need this for?
 router.get("/:tripId", tripDetail);
 
 router.put(
