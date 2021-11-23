@@ -27,13 +27,10 @@ exports.getProfileList = async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
     try {
       if (req.file) {
-        req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+        req.body.image = `/media/${req.file.filename}`;
       };
-      
-      if (req.user._id === req.profile.user._id) {
-        const updatedProfile = await req.profile.updateOne(req.body);
+        const updatedProfile = await req.profile.update(req.body);
         return res.status(201).json(updatedProfile);
-      }
     } catch (error) {
       return next(error);
     }
