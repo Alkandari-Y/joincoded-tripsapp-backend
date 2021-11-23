@@ -18,10 +18,6 @@ const UserSchema = Schema(
       match: /.+\@.+\..+/,
       required: true,
       unique: true,
-    },
-    profile: {
-      type: Schema.Types.ObjectId,
-      ref: 'Profile'
     }
   },
   { timestamps: true }
