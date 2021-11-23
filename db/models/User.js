@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const mongooseSlugPlugin = require("mongoose-slug-plugin");
 
 const UserSchema = Schema(
   {
@@ -28,5 +27,4 @@ const UserSchema = Schema(
   { timestamps: true }
 );
 
-UserSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=username%>" });
 module.exports = model("User", UserSchema);
