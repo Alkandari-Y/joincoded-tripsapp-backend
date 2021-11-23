@@ -21,16 +21,9 @@ const UserSchema = Schema(
       unique: true,
     },
     profile: {
-      image: {
-        type: String,
-        default: "/media/defaultUserImage.jpg"
-      },
-      bio: {
-        type: String,
-      },
-      favoriteTrips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
-      tripsToGoOn: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
-    },
+      type: Schema.Types.ObjectId,
+      ref: 'Profile'
+    }
   },
   { timestamps: true }
 );
