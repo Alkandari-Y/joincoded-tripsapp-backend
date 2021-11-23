@@ -10,7 +10,7 @@ const ProfileSchema = Schema(
         type: String,
         default: "/media/defaultUserImage.jpg"
     },
-        bio: {
+    bio: {
         type: String,
     },
     favoriteTrips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],

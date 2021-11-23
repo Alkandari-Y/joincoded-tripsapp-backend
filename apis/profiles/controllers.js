@@ -38,17 +38,3 @@ exports.updateProfile = async (req, res, next) => {
       return next(error);
     }
   };
-  
-  // exports.editProfile = async (req, res, next) => {
-  //   req.profile = req.body
-  //   try {
-  //     if (req.file) {
-  //       req.body.profile.image = `http://${req.get("host")}/media/${req.file.filename}`;
-  //     }
-  //     // const { userName } = req.params;
-  //     const updatedUser = await User.findOneAndUpdate(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
-  //     return res.status(201).json(updatedUser);
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // };
