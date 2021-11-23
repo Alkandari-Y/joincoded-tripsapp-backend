@@ -23,7 +23,7 @@ const UserSchema = Schema(
     profile: {
       image: {
         type: String,
-        default: "/media/defaultUserImage.jpg"
+        default: "/media/defaultUserImage.jpg",
       },
       bio: {
         type: String,
@@ -35,5 +35,6 @@ const UserSchema = Schema(
   { timestamps: true }
 );
 
+// REVIEW: This line is for slugs, we dont have slugs in mobile apps, please remove it and uninstall the plugin
 UserSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=username%>" });
 module.exports = model("User", UserSchema);

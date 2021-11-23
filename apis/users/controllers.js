@@ -17,6 +17,7 @@ exports.findUserByUserName = async (userName, next) => {
 //
 exports.getRequestedProfile = async (req, res, next) => {
   try {
+    // REVIEW: Remove console log
     console.log(req.profile);
     res.status(200).json(req.profile);
   } catch (error) {

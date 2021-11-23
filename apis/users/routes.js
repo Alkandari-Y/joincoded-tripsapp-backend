@@ -12,6 +12,7 @@ const passport = require("passport");
 router.param("userName", async (req, res, next, userName) => {
   const requestedProfile = await findUserByUserName(userName, next);
   if (requestedProfile) {
+    // why not spread (...) `requestedProfile.profile` instead of manually adding fields?
     req.profile = {
       username: requestedProfile.username,
       image: requestedProfile.profile.image,
@@ -34,12 +35,17 @@ router.post(
   passport.authenticate("local", { session: false }),
   signIn
 );
+// REVIEW: Why by the username not the ID?
+// REVIEW: username is one word, so it's username not userName
+// REVIEW: Better naming /profiles/whatever
+// REVIEW: I believe the fetch profile and update profile should be in their own folder
 router.get(
   "/userProfile/:userName",
 
   getRequestedProfile
 );
 
+// REVIEW: IF you're updating the logged in user, you cannot pass the username, you should get the user info through the token
 //Updating Page
 router.put(
   "/:userName",

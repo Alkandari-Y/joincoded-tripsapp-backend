@@ -30,6 +30,7 @@ exports.tripCreate = async (req, res, next) => {
     }
     req.body.owner = req.user._id; // this is to give the person whose logged in the ownership
     // req.user => logged in user from passport jwt
+    // REVIEW: remove the console log
     console.log(req.body);
     const newTrip = await Trip.create(req.body);
     // await newTrip.populate // we will need to add the relations
@@ -47,6 +48,7 @@ exports.tripUpdate = async (req, res, next) => {
       req.body.image = `/${req.file.path}`;
       req.body.image = req.body.image.replace("\\", "/");
     }
+    // REVIEW: remove the console logs
     console.log(req.trip);
     console.log(req.body);
     const trip = await Trip.findByIdAndUpdate(req.trip, req.body, {

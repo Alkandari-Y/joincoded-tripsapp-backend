@@ -23,6 +23,7 @@ router.param("tripId", async (req, res, next, tripId) => {
   }
 });
 
+// REVIEW: Why do you need the detail route?
 router.get("/:tripId", tripDetail);
 
 router.put(
