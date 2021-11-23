@@ -36,7 +36,6 @@ const tripRoutes = require("./apis/trips/routes");
 app.use("/api/trips", tripRoutes);
 app.use("/api/", userRoutes);
 
-
 app.use(errorHandler);
 
 //SERVER ACTIVATION
