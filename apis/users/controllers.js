@@ -45,14 +45,31 @@ exports.signIn = async (req, res, next) => {
 // Editing Profile
 
 exports.editProfile = async (req, res, next) => {
+  console.log(req.user);
   try {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
     // const { userName } = req.params;
-    await req.user.updateOne(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+    // await User.findOne({ username: userName });
+    await req.user.updateOne({ profile: req.body }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+
     return res.status(201).json(req.user.profile);
   } catch (error) {
     return next(error);
   }
 };
+
+// exports.editProfile = async (req, res, next) => {
+//   req.profile = req.body
+//   try {
+//     if (req.file) {
+//       req.body.profile.image = `http://${req.get("host")}/media/${req.file.filename}`;
+//     }
+//     // const { userName } = req.params;
+//     const updatedUser = await User.findOneAndUpdate(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+//     return res.status(201).json(updatedUser);
+//   } catch (error) {
+//     return next(error);
+//   }
+// };
