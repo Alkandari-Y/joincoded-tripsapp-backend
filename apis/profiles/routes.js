@@ -7,6 +7,7 @@ const {
     getProfileList,
     findUserProfileById,
     updateProfile,
+    returnNewUserProfile
 } = require("./controllers");
 
 router.param("profileId", async (req, res, next, profileId) => {
@@ -25,6 +26,12 @@ router.put(
     passport.authenticate("jwt", { session: false }),
     upload.single("image"),
     updateProfile
+);
+
+router.get(
+  "/newUser",
+  passport.authenticate("jwt", { session: false }),
+  returnNewUserProfile
 );
 
 router.get(
