@@ -1,4 +1,4 @@
-const Profile = require("../../db/models/Profile")
+const Profile = require("../../db/models/Profile");
 const User = require("../../db/models/User");
 //Import Utils
 const { createHash } = require("../../utils/createHash");
@@ -11,7 +11,7 @@ exports.signUp = async (req, res, next) => {
 
     const newUser = await User.create(req.body);
     const token = generateToken(newUser);
-    const userProfile = await Profile.create({ user: newUser._id, });
+    const userProfile = await Profile.create({ user: newUser._id });
     await newUser.updateOne({ profile: userProfile._id });
     res.status(201).json({ token });
   } catch (error) {

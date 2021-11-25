@@ -4,10 +4,10 @@ const upload = require("../../middleware/multer");
 const passport = require("passport");
 
 const {
-    getProfileList,
-    findUserProfileById,
-    updateProfile,
-    returnNewUserProfile
+  getProfileList,
+  findUserProfileById,
+  updateProfile,
+  returnNewUserProfile,
 } = require("./controllers");
 
 router.param("profileId", async (req, res, next, profileId) => {
@@ -22,10 +22,10 @@ router.param("profileId", async (req, res, next, profileId) => {
 
 //Updating Page
 router.put(
-    "/:profileId",
-    passport.authenticate("jwt", { session: false }),
-    upload.single("image"),
-    updateProfile
+  "/:profileId",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  updateProfile
 );
 
 router.get(
@@ -34,7 +34,6 @@ router.get(
   returnNewUserProfile
 );
 
-router.get(
-    "/", getProfileList );
-  
+router.get("/", getProfileList);
+
 module.exports = router;
