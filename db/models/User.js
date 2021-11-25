@@ -18,7 +18,7 @@ const UserSchema = Schema(
       match: /.+\@.+\..+/,
       required: true,
       unique: true,
-    }
+    },
   },
   { timestamps: true }
 );
