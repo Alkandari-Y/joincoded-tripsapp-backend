@@ -15,7 +15,8 @@ exports.fetchTrip = async (TripId, next) => {
 //Fetch Trip List
 exports.tripListRetrieve = async (req, res, next) => {
   try {
-    const trips = await Trip.find();
+    const trips = await Trip.find().populate(
+      { path: "owner", select: "profile" });
     return res.json(trips);
   } catch (error) {
     next(error);
