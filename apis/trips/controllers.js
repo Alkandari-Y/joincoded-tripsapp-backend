@@ -15,8 +15,10 @@ exports.fetchTrip = async (TripId, next) => {
 //Fetch Trip List
 exports.tripListRetrieve = async (req, res, next) => {
   try {
-    const trips = await Trip.find().populate(
-      { path: "owner", select: "profile" });
+    const trips = await Trip.find().populate({
+      path: "owner",
+      select: "profile",
+    });
     return res.json(trips);
   } catch (error) {
     next(error);
@@ -28,12 +30,17 @@ exports.tripCreate = async (req, res, next) => {
   try {
     if (req.file) {
       req.body.image = `/${req.file.path}`;
+      req.body.image = req.body.image.replace("\\", "/");
     }
     req.body.owner = req.user._id; // this is to give the person whose logged in the ownership
     // req.user => logged in user from passport jwt
     const newTrip = await Trip.create(req.body);
     // await newTrip.populate // we will need to add the relations
 
+    await newTrip.populate({
+      path: "owner",
+      select: "profile",
+    });
     return res.status(201).json(newTrip);
   } catch (error) {
     next(error);
