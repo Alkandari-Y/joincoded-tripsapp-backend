@@ -58,6 +58,11 @@ exports.tripUpdate = async (req, res, next) => {
       new: true,
       runValidators: true, // returns updated products
     });
+    await trip.populate({
+      path: "owner",
+      select: "profile",
+    });
+    console.log(trip);
     return res.json(trip);
   } catch (error) {
     next(error);
